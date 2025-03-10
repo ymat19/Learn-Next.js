@@ -58,7 +58,7 @@ create-next-appの備え付けではない
 
 #### `layout.tsx`
 
-Layoutコンポーネントをdefault exportする必要がある
+Layoutコンポーネントをexportする必要がある
 
 childrenには↓が入ってくる
 
@@ -76,6 +76,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 ```
 
 ### chapter 5
+
+#### Linkコンポーネント
+
+Nextにレイアウトを部分レンダリングさせるには`Link`コンポーネントを使う  
+(親Layoutを読み込むと子レイアウトがprefetchされるらしい)
+
+#### usePathname
+
+Nextで現在のパスを扱うためのカスタムフック  
+next組み込みrouterでパス遷移すると更新される
 
 ### chapter 6
 
