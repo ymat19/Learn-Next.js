@@ -89,6 +89,8 @@ next組み込みrouterでパス遷移すると更新される
 
 ### chapter 6
 
+PostgreSQLが先月消えたっぽくて選べない
+
 ### chapter 7
 
 ### chapter 8
