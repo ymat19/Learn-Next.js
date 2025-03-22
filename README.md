@@ -90,8 +90,18 @@ next組み込みrouterでパス遷移すると更新される
 ### chapter 6
 
 PostgreSQLが先月消えたっぽくて選べない
-回避策
-https://github.com/vercel/next-learn/issues/951
+[回避策](https://github.com/vercel/next-learn/issues/951)
+
+[Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
+
+```ts
+sql`SELECT * FROM users WHERE id = ${userId}`;
+↓
+sql(
+  ["SELECT * FROM users WHERE id = ", ""],
+  userId
+);
+```
 
 ### chapter 7
 
