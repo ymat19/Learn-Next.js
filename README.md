@@ -90,6 +90,8 @@ next組み込みrouterでパス遷移すると更新される
 ### chapter 6
 
 PostgreSQLが先月消えたっぽくて選べない
+回避策
+https://github.com/vercel/next-learn/issues/951
 
 ### chapter 7
 
