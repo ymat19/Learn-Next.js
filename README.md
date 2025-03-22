@@ -105,6 +105,34 @@ sql(
 
 ### chapter 7
 
+#### サーバサイドコンポーネント
+
+- サーバサイドで完結するものはhtmlに、クライアントコンポーネントが関わる部分はFlightにシリアライズされる
+  - Flight: コンポーネントをjsonっぽくしたやつ
+- asyncなコンポーネントも作れる
+
+#### aaa
+
+- クライアントコンポーネントとサーバサイドコンポーネントは別バンドル
+- クライアントコンポーネントはサーバサイドコンポーネントをimportできないし使えない
+- サーバサイドコンポーネントがクライアントサイドコンポーネントをimportすることはできる
+  - importするが実行はしない、flightで参照情報がクライアントにわたって実行される
+- サーバサイドコンポーネントがクライアントサイドコンポーネントのchildrennにサーバサイドコンポーネントを埋め込むことはできる
+
+```tsx
+// これはいける
+import ClientComponent from './ClientComponent';
+import ServerPart from './ServerPart';
+
+export default function Page() {
+  return (
+    <ClientComponent>
+      <ServerPart />
+    </ClientComponent>
+  );
+}
+```
+
 ### chapter 8
 
 ### chapter 9
