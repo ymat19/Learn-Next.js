@@ -143,6 +143,43 @@ export default function Page() {
 
 ### chapter 9
 
+#### loading.tsx
+
+page.tsxがロードされるまで代わりに表示される
+子のルートにも効く
+子に効かせたくないならroute groupsを切る
+
+#### route groups
+
+パスを変えずに、同一のルートで内部的にディレクトリを切る
+パスが変わらないので名前が重複するのはダメ
+
+```txt
+app/
+  (auth)/
+    login/
+    register/
+    users/
+  (main)/
+    home/
+    profile/
+    users/ ダメ
+```
+
+#### Suspens
+
+page単位ではなくコンポーネント単位でストリーミングしたいならこれを使う
+
+[Suspens](https://ja.react.dev/reference/react/Suspense)
+
+#### fetchする場所
+
+サーバサイドコンポーネントが自分自身でawait fetchして、そのコンポーネントをSuspenseでラップするのが推奨。分離性，再利用性が上がるため。
+
+呼び出し元でfetchしてpropsで受けるのはサーバサイドコンポーネントでは非推奨。
+
+サーバサイドコンポーネントは仮装DOMの制約を受けずasync, awaitできるのでfetchしても副作用にならない。(useEffectしなくて良いので狭義に純粋)
+
 ### chapter 10
 
 ### chapter 11
