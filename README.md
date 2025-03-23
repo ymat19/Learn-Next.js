@@ -139,8 +139,6 @@ export default function Page() {
 }
 ```
 
-### chapter 8
-
 ### chapter 9
 
 #### loading.tsx
@@ -179,8 +177,6 @@ page単位ではなくコンポーネント単位でストリーミングした�
 呼び出し元でfetchしてpropsで受けるのはサーバサイドコンポーネントでは非推奨。
 
 サーバサイドコンポーネントは仮装DOMの制約を受けずasync, awaitできるのでfetchしても副作用にならない。(useEffectしなくて良いので狭義に純粋)
-
-### chapter 10
 
 ### chapter 11
 
