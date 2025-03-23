@@ -90,14 +90,95 @@ next組み込みrouterでパス遷移すると更新される
 ### chapter 6
 
 PostgreSQLが先月消えたっぽくて選べない
-回避策
-https://github.com/vercel/next-learn/issues/951
+[回避策](https://github.com/vercel/next-learn/issues/951)
+
+[Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
+
+```ts
+sql`SELECT * FROM users WHERE id = ${userId}`;
+↓
+sql(
+  ["SELECT * FROM users WHERE id = ", ""],
+  userId
+);
+```
 
 ### chapter 7
+
+#### コンポーネント
+
+- クライアントコンポーネントとサーバサイドコンポーネントは別バンドル
+
+##### クライアントコンポーネント
+
+- 通常通りReact.createElementとして実行される
+- サーバサイドコンポーネントをimportすることはできない
+- サーバからFlightとして受け取って、jsxに復元されてブラウザで実行される
+  - Flight: コンポーネントをjsonっぽくしたやつ
+- Flightを解釈する処理はnextがクライアントのコードに注入していて、レンダリング前に解決される
+
+##### サーバサイドコンポーネント
+
+- asyncなコンポーネントも作れる
+- サーバサイドで完結するものはあらかじめhtmlになり、クライアントコンポーネントが関わる部分はFlightにシリアライズされる
+- サーバサイドコンポーネントがクライアントサイドコンポーネントをimportすることはできる
+  - importするが実行はしない、flightで参照情報がクライアントにわたって実行される
+- サーバサイドコンポーネントがクライアントサイドコンポーネントのchildrennにサーバサイドコンポーネントを埋め込むことはできる
+
+```tsx
+// これはいける
+import ClientComponent from './ClientComponent';
+import ServerPart from './ServerPart';
+
+export default function Page() {
+  return (
+    <ClientComponent>
+      <ServerPart />
+    </ClientComponent>
+  );
+}
+```
 
 ### chapter 8
 
 ### chapter 9
+
+#### loading.tsx
+
+page.tsxがロードされるまで代わりに表示される
+子のルートにも効く
+子に効かせたくないならroute groupsを切る
+
+#### route groups
+
+パスを変えずに、同一のルートで内部的にディレクトリを切る
+パスが変わらないので名前が重複するのはダメ
+
+```txt
+app/
+  (auth)/
+    login/
+    register/
+    users/
+  (main)/
+    home/
+    profile/
+    users/ ダメ
+```
+
+#### Suspens
+
+page単位ではなくコンポーネント単位でストリーミングしたいならこれを使う
+
+[Suspens](https://ja.react.dev/reference/react/Suspense)
+
+#### fetchする場所
+
+サーバサイドコンポーネントが自分自身でawait fetchして、そのコンポーネントをSuspenseでラップするのが推奨。分離性，再利用性が上がるため。
+
+呼び出し元でfetchしてpropsで受けるのはサーバサイドコンポーネントでは非推奨。
+
+サーバサイドコンポーネントは仮装DOMの制約を受けずasync, awaitできるのでfetchしても副作用にならない。(useEffectしなくて良いので狭義に純粋)
 
 ### chapter 10
 
