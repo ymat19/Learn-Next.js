@@ -180,6 +180,40 @@ page単位ではなくコンポーネント単位でストリーミングした�
 
 ### chapter 11
 
+#### useSearchParams
+
+ReadonlyURLSearchParamsを返すので、下のようにコピーを作って書き換える
+
+```
+    const searchParams = useSearchParams();
+    const params = new URLSearchParams(searchParams);
+```
+
+#### 制御/非制御コンポーネント
+
+inputのvalueをstateにバインドするものを制御コンポーネント、DOMに任せる場合非制御コンポーネントと呼ぶ
+
+初期値を受けてユーザ入力に従うだけなら後者で十分、ロジックから値を操作するなら前者が望ましい
+
+
+```tsx
+// 制御
+    const [query, setQuery] = useState("");
+    return (
+    <input
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+    />);
+
+// 非制御
+    <input
+      defaultValue="Hoge"
+      onChange={(e) => {
+        doSomething(e.target.value);
+      }}
+    />
+```
+
 ### chapter 12
 
 ### chapter 13
