@@ -184,10 +184,19 @@ page単位ではなくコンポーネント単位でストリーミングした�
 
 ReadonlyURLSearchParamsを返すので、下のようにコピーを作って書き換える
 
-```
+クライアントコンポーネントではこれを使う。クエリの変更がリアルタイムに反映される。
+
+
+```tsx
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams);
 ```
+
+#### searchParams(props)
+
+サーバサイドコンポーネントの場合、propsにクエリストリングのPromiseが注入される
+
+SSR時点で値が確定する
 
 #### 制御/非制御コンポーネント
 
