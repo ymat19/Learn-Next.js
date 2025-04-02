@@ -10,7 +10,7 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 
 #### プロジェクト作成
 
-``` cmd
+```cmd
 npx create-next-app@latest <app name> --use-pnpm --ts
 ```
 
@@ -21,8 +21,8 @@ npx create-next-app@latest <app name> --use-pnpm --ts
 ルートレイアウトでcssをimportする
 (cssインポートがデフォルトで有効)
 
-``` tsx title="app/layout.tsx"
-import '@/app/ui/global.css';
+```tsx title="app/layout.tsx"
+import "@/app/ui/global.css";
 ```
 
 エイリアスは↓
@@ -65,7 +65,7 @@ childrenには↓が入ってくる
 - 自身のルートのpage.tsx
 - 子のルートのlayout.tsx
 
-``` tsx
+```tsx
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
@@ -127,8 +127,8 @@ sql(
 
 ```tsx
 // これはいける
-import ClientComponent from './ClientComponent';
-import ServerPart from './ServerPart';
+import ClientComponent from "./ClientComponent";
+import ServerPart from "./ServerPart";
 
 export default function Page() {
   return (
@@ -138,8 +138,6 @@ export default function Page() {
   );
 }
 ```
-
-### chapter 8
 
 ### chapter 9
 
@@ -180,9 +178,64 @@ page単位ではなくコンポーネント単位でストリーミングした�
 
 サーバサイドコンポーネントは仮装DOMの制約を受けずasync, awaitできるのでfetchしても副作用にならない。(useEffectしなくて良いので狭義に純粋)
 
-### chapter 10
-
 ### chapter 11
+
+#### useSearchParams
+
+ReadonlyURLSearchParamsを返すので、下のようにコピーを作って書き換える
+
+クライアントコンポーネントではこれを使う。クエリの変更がリアルタイムに反映される。
+
+```tsx
+const searchParams = useSearchParams();
+const params = new URLSearchParams(searchParams);
+```
+
+#### useRouter
+
+クライアントコンポーネントでこれを更新すると、Pageコンポーネントが再レンダリングされる。
+
+サーバサイドコンポーネントはpropsの更新によって再実行されないので、サンプルではこの仕組みでクエリ更新時の再レンダリングをかけている。
+
+```
+  const { replace } = useRouter();
+```
+
+#### searchParams(props)
+
+サーバサイドコンポーネントの場合、propsにクエリストリングのPromiseが注入される
+
+SSR時点で値が確定する
+
+#### 制御/非制御コンポーネント
+
+inputのvalueをstateにバインドするものを制御コンポーネント、DOMに任せる場合非制御コンポーネントと呼ぶ
+
+初期値を受けてユーザ入力に従うだけなら後者で十分、ロジックから値を操作するなら前者が望ましい
+
+```tsx
+// 制御
+const [query, setQuery] = useState("");
+return <input value={query} onChange={(e) => setQuery(e.target.value)} />;
+
+// 非制御
+<input
+  defaultValue="Hoge"
+  onChange={(e) => {
+    doSomething(e.target.value);
+  }}
+/>;
+```
+
+#### useDebouncedCallback
+
+npmパッケージで提供されるカスタムフック
+
+コールバックの発火から実行まで指定の時間待機することで連続墓を防ぐ
+
+#### ページング
+
+ページングはクライアントでやるので、総ページ数は親のサーバサイドコンポーネントから渡しておく
 
 ### chapter 12
 
