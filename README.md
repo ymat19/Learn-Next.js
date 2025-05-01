@@ -239,6 +239,50 @@ npmパッケージで提供されるカスタムフック
 
 ### chapter 12
 
+#### サーバアクション
+
+クライアントに渡ったフォームがサーバ側の関数をRPC呼び出しできる
+
+```
+// Server Component
+export default function Page() {
+  // Action
+  async function create(formData: FormData) {
+    'use server';
+
+    // Logic to mutate data...
+  }
+
+  // Invoke the action using the "action" attribute
+  return <form action={create}>...</form>;
+}
+```
+
+データ操作は以下で使い分ける
+
+- データ取得に伴う再レンダリングを行うならURLを更新しサーバサイドコンポーネントを再レンダリングする
+- 再レンダリングを伴わない場合(副作用)はサーバアクション
+
+#### revalidatePath
+
+キャッシュを消してページを再取得するよう要求する。全ユーザに影響する。
+
+```tsx
+revalidatePath("/dashboard/invoices");
+```
+
+サーバアクションでこれに続いてredirectもすればそのまま再レンダリングさせられる。
+
+#### Dynamic Route Segments
+
+`hoge/[id]/fuga` のようなルートを作れる
+
+idはpropsに入る。サンプルは↓になってるが、最新のnextではPromiseじゃない？
+
+```
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+```
+
 ### chapter 13
 
 ### chapter 14
