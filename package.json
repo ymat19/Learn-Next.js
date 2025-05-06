@@ -35,6 +35,7 @@
     "prettier": "^3.5.3",
     "typescript-eslint": "^8.32.0"
   },
+  "packageManager": "pnpm@10.8.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "bcrypt",
