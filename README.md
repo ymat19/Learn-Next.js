@@ -283,6 +283,18 @@ idはpropsに入る。サンプルは↓になってるが、最新のnextでは
 export default async function Page(props: { params: Promise<{ id: string }> }) {
 ```
 
+#### 引数付きでサーバアクションを呼ぶ
+
+[bind](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)を用いて元の関数への参照を維持する
+
+
+```
+  // NG
+  const updateInvoiceWithId = () => updateInvoice(null, invoice.id);
+  // OK
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+```
+
 ### chapter 13
 
 ### chapter 14
