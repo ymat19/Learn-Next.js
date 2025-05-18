@@ -297,6 +297,27 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
 ### chapter 13
 
+#### error.tsx
+
+例外がハンドリングされなかった場合、これがフォールバックUIとして表示される。
+
+#### not-found.tsx
+
+404の場合のエラーはerror.tsxとは別に用意できる。
+
+```
+import { notFound } from 'next/navigation';
+
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const resource = query(id);
+  if (!resource) {
+    notFound();
+  }
+  return ...
+}
+
+```
+
 ### chapter 14
 
 ### chapter 15
