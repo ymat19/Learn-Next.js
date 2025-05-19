@@ -318,8 +318,4 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
 ```
 
-### chapter 14
-
-### chapter 15
-
-### chapter 16
+以降は省略
